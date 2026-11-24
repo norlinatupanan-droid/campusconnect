@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CampusConnect</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+header {
+    background: #2563eb;
+    color: white;
+    padding: 20px 8%;
+}
+
+header h2 { margin: 0; }
+
+.container {
+    max-width: 900px;
+    margin: 35px auto;
+    padding: 20px;
+}
+
+.page {
+    display: none;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px #00000012;
+}
+
+#login { display: block; }
+
+h1, h2 { color: #1e293b; }
+
+input, select, textarea {
+    width: 100%;
+    padding: 13px;
+    margin: 10px 0;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+}
+
+button, .btn {
+    display: inline-block;
+    background: #2563eb;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 7px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover, .btn:hover {
+    background: #1d4ed8;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.card {
+    padding: 22px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+}
+
+.card p { color: #64748b; }
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+.success {
+    text-align: center;
+    padding: 20px;
+}
+
+.check {
+    font-size: 60px;
+    color: #16a34a;
+}
+
+@media(max-width: 600px) {
+    .grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2>CampusConnect</h2>
+    <p>Campus Service Management System</p>
+</header>
+
+<div class="container">
+
+<!-- LOGIN -->
+<section id="login" class="page">
+    <h1>Welcome to CampusConnect!</h1>
+    <p>Student Login</p>
+
+    <label>Student ID</label>
+    <input type="text" placeholder="Enter Student ID">
+
+    <label>Password</label>
+    <input type="password" placeholder="Enter Password">
+
+    <button onclick="showPage('dashboard')">Login</button>
+</section>
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="page">
+    <h1>Welcome, Student!</h1>
+    <p>What campus service do you need today?</p>
+
+    <h2>Available Services</h2>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Library Services</h3>
+            <p>Library assistance and services.</p>
+            <button onclick="selectService('Library Services')">View Service</button>
+        </div>
+
+        <div class="card">
+            <h3>Laboratory Reservation</h3>
+            <p>Reserve a computer laboratory.</p>
+            <button onclick="selectService('Laboratory Reservation')">View Service</button>
+        </div>
+
+        <div class="card">
+            <h3>Document Request</h3>
+            <p>Request school documents.</p>
+            <button onclick="selectService('Document Request')">View Service</button>
+        </div>
+
+        <div class="card">
+            <h3>Facility Booking</h3>
+            <p>Book campus facilities.</p>
+            <button onclick="selectService('Facility Booking')">View Service</button>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICE DIRECTORY -->
+<section id="directory" class="page">
+    <h1>Service Directory</h1>
+    <p>Choose a campus service below.</p>
+
+    <div class="grid">
+        <div class="card">Library Services</div>
+        <div class="card">Laboratory Reservation</div>
+        <div class="card">Document Request</div>
+        <div class="card">Facility Booking</div>
+    </div>
+
+    <button onclick="showPage('dashboard')">Back to Dashboard</button>
+</section>
+
+<!-- REQUEST FORM -->
+<section id="request" class="page">
+    <h1>Campus Service Request</h1>
+
+    <form onsubmit="submitRequest(event)">
+        <label>Student Name</label>
+        <input type="text" required placeholder="Enter your name">
+
+        <label>Student ID</label>
+        <input type="text" required placeholder="Enter Student ID">
+
+        <label>Select Service</label>
+        <select id="service" required>
+            <option value="">Choose a service</option>
+            <option>Library Services</option>
+            <option>Laboratory Reservation</option>
+            <option>Document Request</option>
+            <option>Facility Booking</option>
+        </select>
+
+        <label>Request Details</label>
+        <textarea required placeholder="Describe your request"></textarea>
+
+        <button type="submit">Submit Request</button>
+    </form>
+
+    <button onclick="showPage('dashboard')">Back</button>
+</section>
+
+<!-- CONFIRMATION -->
+<section id="confirmation" class="page success">
+    <div class="check">✓</div>
+    <h1>Request Submitted!</h1>
+    <p>Your campus service request has been submitted successfully.</p>
+    <p><strong>Request Status: Pending</strong></p>
+
+    <button onclick="showPage('dashboard')">Back to Dashboard</button>
+</section>
+
+</div>
+
+<script>
+function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(page => {
+        page.style.display = 'none';
+    });
+
+    document.getElementById(pageId).style.display = 'block';
+}
+
+function selectService(serviceName) {
+    showPage('request');
+    document.getElementById('service').value = serviceName;
+}
+
+function submitRequest(event) {
+    event.preventDefault();
+    showPage('confirmation');
+}
+</script>
+
+</body>
+</html>
+
+
+
+
+
